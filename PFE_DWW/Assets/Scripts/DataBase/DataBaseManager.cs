@@ -14,7 +14,7 @@ public class DataBaseManager : MonoBehaviour
             if (_instance == null)
             {
                 DataBaseManager[] foundObjects = FindObjectsOfType<DataBaseManager>();
-                if(foundObjects != null && foundObjects.Length < 2)
+                if (foundObjects != null && foundObjects.Length < 2)
                 {
                     _instance = foundObjects[0];
                 }

@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "DWW/DataBase")]
 public class DataBase : ScriptableObject
 {
-    public Arrow arrow;
-    public Target target;
+    public GameObject example0;
+    public GameObject example1;
 }
