@@ -99,6 +99,7 @@ public class PlayerController : MonoBehaviour
         {
             crouch = false;
             _speed = 6.0f;
+            transform.localScale = new Vector3(1, 1, 1);
             //_animator.SetBool("IsCrouching", false);
         }
 
@@ -106,6 +107,7 @@ public class PlayerController : MonoBehaviour
         {
             crouch = true;
             _speed = 3.0f;
+            transform.localScale = new Vector3(1, 0.5f, 1);
             //_animator.SetBool("IsCrouching", true);
         }
     }
