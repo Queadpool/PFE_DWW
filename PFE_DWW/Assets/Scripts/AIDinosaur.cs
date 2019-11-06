@@ -9,7 +9,8 @@ public class AIDinosaur : MonoBehaviour
         Walk,
         Eat,
         Watch,
-        RunAway,
+        Flee,
+        Attack,
         Soul,
         Tame
     }
@@ -29,8 +30,11 @@ public class AIDinosaur : MonoBehaviour
     [Header("Watch Settings")]
     [SerializeField] private GameObject watchSettings;
 
-    [Header("Run Away Settings")]
-    [SerializeField] private GameObject runSettings;
+    [Header("Flee Settings")]
+    [SerializeField] private GameObject fleeSettings;
+
+    [Header("Attack Settings")]
+    [SerializeField] private GameObject attackSettings;
 
     [Header("Soul Settings")]
     [SerializeField] private GameObject soulSettings;
