@@ -463,7 +463,7 @@ Transform:
   - {fileID: 2099242399}
   - {fileID: 1346280673}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &453161031
 GameObject:
@@ -817,6 +817,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1185773468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1185773470}
+  - component: {fileID: 1185773469}
+  m_Layer: 0
+  m_Name: DataBaseManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1185773469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185773468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 134f34e0486b35b4c9fef6859b3ccbf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataBase: {fileID: 11400000, guid: b94a1fb159f101b45821c7a5dfe90f74, type: 2}
+--- !u!4 &1185773470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185773468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1314201516
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,7 +951,7 @@ Transform:
   m_LocalScale: {x: 20, y: 1, z: 20}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1346280672
 GameObject:
@@ -1033,7 +1077,7 @@ Transform:
   - {fileID: 125523409}
   - {fileID: 1519938687}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1417395222
 MonoBehaviour:
@@ -1053,11 +1097,18 @@ MonoBehaviour:
   _playerController: {fileID: 0}
   _carnivorous: 1
   _tamed: 0
+  _currentState: 0
   _stateTimer: 0
   _detectionDistance: 5
   _distanceToPlayer: 0
-  _currentState: 0
   _idleTimer: 5
+  _eatTimer: 5
+  _watchTimer: 5
+  _pathZone: {x: 0, y: 0, z: 0}
+  _randomWayPoint: {x: 0, y: 0, z: 0}
+  _newPos: {x: 0, y: 0, z: 0}
+  _distanceToNewPos: 0
+  _distancePlayerToNewPos: 0
   tameSettings: {fileID: 0}
 --- !u!1 &1448599818
 GameObject:
