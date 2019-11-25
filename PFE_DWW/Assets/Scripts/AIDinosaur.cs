@@ -41,13 +41,16 @@ public class AIDinosaur : MonoBehaviour
     [Header("Walk Settings")]
     [SerializeField] private Vector3 _pathZone = Vector3.zero;
     [SerializeField] private Vector3 _randomWayPoint = Vector3.zero;
-    [SerializeField] private Vector3 _newPos = Vector3.zero;
+    [SerializeField] private Vector3 _newDestination = Vector3.zero;
     [SerializeField] private float _distanceToNewPos = 0.0f;
 
     [Header("Flee Settings")]
     [SerializeField] private float _distancePlayerToNewPos = 0.0f;
 
     [Header("Attack Settings")]
+    [SerializeField] private float _attackTimer = 5.0f;
+    [SerializeField] private Vector3 _newAttackPos = Vector3.zero;
+    [SerializeField] private float _distanceToAttackPos = 0.0f;
 
     [Header("Soul Settings")]
 
@@ -69,22 +72,23 @@ public class AIDinosaur : MonoBehaviour
     private void DoStateBehaviour()
     {
         _distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
-        _distanceToNewPos = Vector3.Distance(transform.position, _newPos);
-        _distancePlayerToNewPos = Vector3.Distance(_player.transform.position, _newPos);
+        _distanceToNewPos = Vector3.Distance(transform.position, _newDestination);
+        _distancePlayerToNewPos = Vector3.Distance(_player.transform.position, _newDestination);
+        _distanceToAttackPos = Vector3.Distance(transform.position, _newAttackPos);
 
         switch (_currentState)
         {
             case State.Idle:
                 {
                     // Fin d'animation
-                    if (_stateTimer > _idleTimer)
+                    if (_stateTimer >= _idleTimer)
                     {
                         _stateTimer = 0.0f;
 
                         ChangeState();
                     }
                     // (Player debout && Dans la zone de detection) || Player trop proche
-                    else if (((!_playerController.crouch) && (_distanceToPlayer < _detectionDistance)) || (_distanceToPlayer < 2.0f))
+                    else if (((!_playerController._crouch) && (_distanceToPlayer <= _detectionDistance)) || (_distanceToPlayer <= 2.0f))
                     {
                         _stateTimer = 0.0f;
 
@@ -122,13 +126,13 @@ public class AIDinosaur : MonoBehaviour
                 }
             case State.Eat:
                 {
-                    if (_stateTimer > _eatTimer)
+                    if (_stateTimer >= _eatTimer)
                     {
                         _stateTimer = 0.0f;
 
                         ChangeState();
                     }
-                    else if (((!_playerController.crouch) && (_distanceToPlayer < _detectionDistance)) || (_distanceToPlayer < 2.0f))
+                    else if (((!_playerController._crouch) && (_distanceToPlayer <= _detectionDistance)) || (_distanceToPlayer <= 2.0f))
                     {
                         _stateTimer = 0.0f;
 
@@ -161,13 +165,13 @@ public class AIDinosaur : MonoBehaviour
                 }
             case State.Watch:
                 {
-                    if (_stateTimer > _watchTimer)
+                    if (_stateTimer >= _watchTimer)
                     {
                         _stateTimer = 0.0f;
 
                         ChangeState();
                     }
-                    else if (((!_playerController.crouch) && (_distanceToPlayer < _detectionDistance)) || (_distanceToPlayer < 2.0f))
+                    else if (((!_playerController._crouch) && (_distanceToPlayer <= _detectionDistance)) || (_distanceToPlayer <= 2.0f))
                     {
                         _stateTimer = 0.0f;
 
@@ -201,14 +205,14 @@ public class AIDinosaur : MonoBehaviour
             case State.Walk:
                 {
                     // Dino est arrivé à destination
-                    if (_distanceToNewPos < 1.0f)
+                    if (_distanceToNewPos <= 1.0f)
                     {
                         _randomWayPoint = Vector3.zero;
                         _agent.ResetPath();
 
                         ChangeState();
                     }
-                    else if (((!_playerController.crouch) && (_distanceToPlayer < _detectionDistance)) || (_distanceToPlayer < 2.0f))
+                    else if (((!_playerController._crouch) && (_distanceToPlayer <= _detectionDistance)) || (_distanceToPlayer <= 2.0f))
                     {
                         _randomWayPoint = Vector3.zero;
                         _agent.ResetPath();
@@ -243,7 +247,7 @@ public class AIDinosaur : MonoBehaviour
                 }
             case State.Flee:
                 {
-                    if (_distanceToNewPos < 1.0f)
+                    if (_distanceToNewPos <= 1.0f)
                     {
                         _randomWayPoint = Vector3.zero;
                         _agent.ResetPath();
@@ -258,6 +262,26 @@ public class AIDinosaur : MonoBehaviour
                 }
             case State.Attack:
                 {
+                    if(_distanceToPlayer > _detectionDistance)
+                    {
+                        _stateTimer = 0.0f;
+                        _newAttackPos = Vector3.zero;
+                        _agent.ResetPath();
+
+                        ChangeState();
+                    }
+                    else if (_playerController._dead)
+                    {
+                        _stateTimer = 0.0f;
+                        _newAttackPos = Vector3.zero;
+                        _agent.ResetPath();
+
+                        ChangeState();
+                    }
+                    else
+                    {
+                        Attack();
+                    }
                     break;
                 }
         }
@@ -291,8 +315,8 @@ public class AIDinosaur : MonoBehaviour
         {
             _randomWayPoint = Random.insideUnitSphere * 20;
             _randomWayPoint.y = 0;
-            _newPos = _pathZone + _randomWayPoint;
-            _agent.SetDestination(_newPos);
+            _newDestination = _pathZone + _randomWayPoint;
+            _agent.SetDestination(_newDestination);
         }
     }
 
@@ -302,7 +326,7 @@ public class AIDinosaur : MonoBehaviour
         {
             _randomWayPoint = Random.insideUnitSphere * 20;
             _randomWayPoint.y = 0;
-            _newPos = _pathZone + _randomWayPoint;
+            _newDestination = _pathZone + _randomWayPoint;
 
             if (_distancePlayerToNewPos < _detectionDistance)
             {
@@ -310,7 +334,27 @@ public class AIDinosaur : MonoBehaviour
                 Flee();
             }
 
-            _agent.SetDestination(_newPos);
+            _agent.SetDestination(_newDestination);
+        }
+    }
+
+    private void Attack()
+    {
+        if (_stateTimer <= _attackTimer)
+        {
+            _stateTimer += Time.deltaTime;
+        }
+        else if (_newAttackPos == Vector3.zero)
+        {
+            _newAttackPos = _player.transform.position;
+            _agent.SetDestination(_newAttackPos);
+        }
+
+        if (_distanceToAttackPos <= 1.0f)
+        {
+            _stateTimer = 0.0f;
+            _newAttackPos = Vector3.zero;
+            _agent.ResetPath();
         }
     }
 }
