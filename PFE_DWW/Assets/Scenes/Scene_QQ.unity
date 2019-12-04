@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 412448534}
   - component: {fileID: 412448533}
   m_Layer: 0
-  m_Name: Yuma_Avatar_Test
+  m_Name: Yuma_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -424,8 +424,9 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   _rotSpeed: 5
   _rotAngle: 45
-  crouch: 0
-  crouchSet: 0
+  _dead: 0
+  _crouch: 0
+  _crouchSet: 0
   _characterCollider: {fileID: 0}
   _controller: {fileID: 0}
 --- !u!143 &412448534
@@ -817,6 +818,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1185773468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1185773470}
+  - component: {fileID: 1185773469}
+  m_Layer: 0
+  m_Name: DataBaseManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1185773469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185773468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 134f34e0486b35b4c9fef6859b3ccbf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataBase: {fileID: 11400000, guid: b94a1fb159f101b45821c7a5dfe90f74, type: 2}
+--- !u!4 &1185773470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185773468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1314201516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,6 +1055,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1417395221}
   - component: {fileID: 1417395222}
+  - component: {fileID: 1417395223}
   m_Layer: 0
   m_Name: Dino_Test
   m_TagString: Untagged
@@ -1033,7 +1079,7 @@ Transform:
   - {fileID: 125523409}
   - {fileID: 1519938687}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1417395222
 MonoBehaviour:
@@ -1047,14 +1093,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44eca718e574b0b488682df2969b9e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carnivorous: 1
-  stateSettings: {fileID: 0}
-  walkSettings: {fileID: 0}
-  eatSettings: {fileID: 0}
-  watchSettings: {fileID: 0}
-  runSettings: {fileID: 0}
-  soulSettings: {fileID: 0}
+  _agent: {fileID: 0}
+  _animator: {fileID: 0}
+  _player: {fileID: 412448532}
+  _playerController: {fileID: 0}
+  _carnivorous: 1
+  _tamed: 0
+  _currentState: 0
+  _stateTimer: 0
+  _detectionDistance: 5
+  _distanceToPlayer: 0
+  _idleTimer: 5
+  _eatTimer: 5
+  _watchTimer: 5
+  _pathZone: {x: 0, y: 0, z: 0}
+  _randomWayPoint: {x: 0, y: 0, z: 0}
+  _newDestination: {x: 0, y: 0, z: 0}
+  _distanceToNewPos: 0
+  _distancePlayerToNewPos: 0
+  _attackTimer: 5
+  _newAttackPos: {x: 0, y: 0, z: 0}
+  _distanceToAttackPos: 0
   tameSettings: {fileID: 0}
+--- !u!195 &1417395223
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417395220}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1448599818
 GameObject:
   m_ObjectHideFlags: 0

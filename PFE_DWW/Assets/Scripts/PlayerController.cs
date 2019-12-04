@@ -9,14 +9,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private AIDinosaur _dinosaur;
 
-    [SerializeField] private float _speed = 6.0F;
-    [SerializeField] private float _gravity = 20.0F;
+    [SerializeField] private float _speed = 6.0f;
+    [SerializeField] private float _gravity = 20.0f;
     [SerializeField] private Vector3 moveDirection = Vector3.zero;
     [SerializeField] private float _rotSpeed = 5.0f;
     [SerializeField] private float _rotAngle = 45.0f;
 
-    [SerializeField] public bool crouch;
-    [SerializeField] private int crouchSet = 0;
+    [SerializeField] public bool _dead;
+    [SerializeField] public bool _crouch;
+    [SerializeField] private int _crouchSet = 0;
 
     [SerializeField] private CharacterController _characterCollider;
     [SerializeField] private CharacterController _controller;
@@ -88,24 +89,24 @@ public class PlayerController : MonoBehaviour
 
     void CrouchCounter()
     {
-        crouchSet++;
+        _crouchSet++;
 
-        if (crouchSet > 1)
+        if (_crouchSet > 1)
         {
-            crouchSet = 0;
+            _crouchSet = 0;
         }
 
-        if (crouchSet == 0)
+        if (_crouchSet == 0)
         {
-            crouch = false;
+            _crouch = false;
             _speed = 6.0f;
             transform.localScale = new Vector3(1, 1, 1);
             //_animator.SetBool("IsCrouching", false);
         }
 
-        if (crouchSet == 1)
+        if (_crouchSet == 1)
         {
-            crouch = true;
+            _crouch = true;
             _speed = 3.0f;
             transform.localScale = new Vector3(1, 0.5f, 1);
             //_animator.SetBool("IsCrouching", true);
