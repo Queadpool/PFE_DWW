@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private AIDinosaur _dinosaur;
 
-    [SerializeField] private float _speed = 6.0F;
-    [SerializeField] private float _gravity = 20.0F;
+    [SerializeField] private float _speed = 6.0f;
+    [SerializeField] private float _gravity = 20.0f;
     [SerializeField] private Vector3 moveDirection = Vector3.zero;
     [SerializeField] private float _rotSpeed = 5.0f;
     [SerializeField] private float _rotAngle = 45.0f;

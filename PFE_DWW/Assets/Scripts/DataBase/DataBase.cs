@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "DWW/DataBase")]
-public class DataBase : ScriptableObject
+[CreateAssetMenu(menuName = "DWW/Database")]
+public class Database : ScriptableObject
 {
-    public GameObject example0;
-    public GameObject example1;
+    [SerializeField] private GameObject _ennemy0;
+    [SerializeField] private GameObject _ennemy1;
+
+    public GameObject Ennemy0 { get { return _ennemy0; } }
+    public GameObject Ennemy1 { get { return _ennemy1; } }
 }
