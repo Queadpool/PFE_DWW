@@ -111,7 +111,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 130931fe85e4e4b4ca32a5cbc89df6b7, type: 2}
 --- !u!1 &125523408
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +423,6 @@ MonoBehaviour:
   _gravity: 20
   moveDirection: {x: 0, y: 0, z: 0}
   _rotSpeed: 5
-  _rotAngle: 45
   _dead: 0
   _crouch: 0
   _crouchSet: 0
@@ -827,7 +826,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1185773470}
-  - component: {fileID: 1185773469}
   m_Layer: 0
   m_Name: DataBaseManager
   m_TagString: Untagged
@@ -835,19 +833,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1185773469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1185773468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 134f34e0486b35b4c9fef6859b3ccbf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dataBase: {fileID: 11400000, guid: b94a1fb159f101b45821c7a5dfe90f74, type: 2}
 --- !u!4 &1185773470
 Transform:
   m_ObjectHideFlags: 0
@@ -879,7 +864,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!64 &1314201517
 MeshCollider:
@@ -1054,8 +1039,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1417395221}
-  - component: {fileID: 1417395222}
   - component: {fileID: 1417395223}
+  - component: {fileID: 1417395222}
   m_Layer: 0
   m_Name: Dino_Test
   m_TagString: Untagged
@@ -1090,31 +1075,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1417395220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44eca718e574b0b488682df2969b9e51, type: 3}
+  m_Script: {fileID: 11500000, guid: af59dd95f1363ee4d95d8bb1ed1edab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _agent: {fileID: 0}
-  _animator: {fileID: 0}
-  _player: {fileID: 412448532}
-  _playerController: {fileID: 0}
-  _carnivorous: 1
-  _tamed: 0
   _currentState: 0
-  _stateTimer: 0
-  _detectionDistance: 5
-  _distanceToPlayer: 0
-  _idleTimer: 5
-  _eatTimer: 5
-  _watchTimer: 5
+  _dinoNav: {fileID: 0}
   _pathZone: {x: 0, y: 0, z: 0}
-  _randomWayPoint: {x: 0, y: 0, z: 0}
-  _newDestination: {x: 0, y: 0, z: 0}
-  _distanceToNewPos: 0
-  _distancePlayerToNewPos: 0
-  _attackTimer: 5
-  _newAttackPos: {x: 0, y: 0, z: 0}
-  _distanceToAttackPos: 0
-  tameSettings: {fileID: 0}
 --- !u!195 &1417395223
 NavMeshAgent:
   m_ObjectHideFlags: 0

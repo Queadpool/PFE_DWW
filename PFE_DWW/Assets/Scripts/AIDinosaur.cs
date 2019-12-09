@@ -18,12 +18,12 @@ public class AIDinosaur : MonoBehaviour
     [Header("Component Settings")]
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private Animator _animator;
-    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _player = null;
     [SerializeField] private PlayerController _playerController;
 
     [Header("General Settings")]
     [SerializeField] private bool _carnivorous = true;
-    [SerializeField] private bool _tamed = false;
+    //[SerializeField] private bool _tamed = false;
     [SerializeField] private State _currentState = State.Idle;
     [SerializeField] private float _stateTimer = 0.0f;
     [SerializeField] private float _detectionDistance = 5.0f;
