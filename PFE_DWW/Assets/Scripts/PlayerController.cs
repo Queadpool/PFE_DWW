@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Camera _camera = null;
     [SerializeField] private Animator _animator;
-    [SerializeField] private AIDinosaur _dinosaur;
 
     [SerializeField] private float _speed = 6.0f;
     [SerializeField] private float _gravity = 20.0f;

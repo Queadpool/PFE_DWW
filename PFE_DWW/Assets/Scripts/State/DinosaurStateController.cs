@@ -15,39 +15,38 @@ public class DinosaurStateController : MonoBehaviour
         ATTACK
     }
 
+    private NavMeshAgent _dinoNav = null;
+    [SerializeField] private bool _carnivorous = false;
     [SerializeField] private EDinosaurState _currentState = EDinosaurState.IDLE;
-    [SerializeField] private NavMeshAgent _dinoNav = null;
-    [SerializeField] private Vector3 _pathZone = Vector3.zero;
 
-    public EDinosaurState CurrentState { get { return _currentState; } }
     public NavMeshAgent DinoNav { get { return _dinoNav; } }
-    public Vector3 PathZone { get { return _pathZone; } }
+    public bool Carnivorous { get { return _carnivorous; } }
+    public EDinosaurState CurrentState { get { return _currentState; } }
 
     Dictionary<EDinosaurState, IBaseState> _states = null;
 
     private void Start()
     {
         _dinoNav = GetComponent<NavMeshAgent>();
-        _pathZone = transform.position;
 
         _states = new Dictionary<EDinosaurState, IBaseState>();
         _states.Add(EDinosaurState.IDLE, new IdleState(this));
         _states.Add(EDinosaurState.EAT, new EatState(this));
         _states.Add(EDinosaurState.WATCH, new WatchState(this));
         _states.Add(EDinosaurState.WALK, new WalkState(this));
-        //_states.Add(EDinosaurState.IDLE, new FleeState(this));
-        //_states.Add(EDinosaurState.IDLE, new AttackState(this));
-        _states[_currentState].Enter();
+        _states.Add(EDinosaurState.FLEE, new FleeState(this));
+        _states.Add(EDinosaurState.ATTACK, new AttackState(this));
+        _states[CurrentState].Enter();
     }
 
     private void Update()
     {
-        _states[_currentState].Update();
+        _states[CurrentState].Update();
     }
 
     public void ChangeState(EDinosaurState nextState)
     {
-        _states[_currentState].Exit();
+        _states[CurrentState].Exit();
         _states[nextState].Enter();
         _currentState = nextState;
     }

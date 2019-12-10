@@ -3,7 +3,9 @@ guid: 134f34e0486b35b4c9fef6859b3ccbf0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _dinosaurData: {fileID: 11400000, guid: 350dc3f1547b4f24499ca2fef9b6a9eb, type: 2}
+  - _ennemyData: {fileID: 11400000, guid: ec01ee2c1a9be6c42acc8486f7b2f871, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -5,14 +5,17 @@ using QQ.Utils;
 
 public class IdleState : IBaseState
 {
-    private DinosaurStateController _controller = null;
+    private DinosaurStateController _dinoController = null;
+    private GameObject _player = null;
+    private float _distanceToPlayer = 0.0f;
     private Timer _timer = null;
     private float _idleTimer = 5.0f;
     private DinosaurStateController.EDinosaurState _randomState = DinosaurStateController.EDinosaurState.IDLE;
 
     public IdleState(DinosaurStateController controller)
     {
-        _controller = controller;
+        _dinoController = controller;
+        _player = PlayerManager.Instance.Player;
     }
 
     public void Enter()
@@ -23,10 +26,24 @@ public class IdleState : IBaseState
 
     public void Update()
     {
-        if(_timer.TimeLeft <= 0)
+        _distanceToPlayer = Vector3.Distance(_dinoController.transform.position, _player.transform.position);
+
+        if (_timer.TimeLeft <= 0)
         {
             RandomState();
-            _controller.ChangeState(_randomState);
+            _dinoController.ChangeState(_randomState);
+        }
+
+        if (_distanceToPlayer <= 5.0f)
+        {
+            if(_dinoController.Carnivorous == true)
+            {
+                _dinoController.ChangeState(DinosaurStateController.EDinosaurState.ATTACK);
+            }
+            else
+            {
+                _dinoController.ChangeState(DinosaurStateController.EDinosaurState.FLEE);
+            }
         }
     }
 
