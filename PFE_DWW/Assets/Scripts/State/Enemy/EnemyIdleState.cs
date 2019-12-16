@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class EnemyIdleState : IBaseState
 {
+    public EnemyIdleState(EnemyStateController controller)
+    {
+
+    }
+
     public void Enter()
     {
 
