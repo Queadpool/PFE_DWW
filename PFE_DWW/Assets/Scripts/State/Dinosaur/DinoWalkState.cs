@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AttackState : IBaseState
+public class DinoWalkState : IBaseState
 {
     private DinosaurStateController _dinoController = null;
     private NavMeshAgent _dinoNav = null;
     private GameObject _player = null;
+    private Vector3 _newPos = Vector3.zero;
+    private float _distanceToNewPos = 0.0f;
     private float _distanceToPlayer = 0.0f;
     private DinosaurStateController.EDinosaurState _randomState = DinosaurStateController.EDinosaurState.IDLE;
 
-    public AttackState(DinosaurStateController controller)
+    public DinoWalkState(DinosaurStateController controller)
     {
         _dinoController = controller;
         _dinoNav = _dinoController.DinoNav;
@@ -20,18 +22,32 @@ public class AttackState : IBaseState
 
     public void Enter()
     {
-        _dinoNav.SetDestination(_player.transform.position);
+        _newPos = _dinoController.transform.position + (Random.insideUnitSphere * 20);
+        _newPos.y = _dinoController.transform.position.y;
+        _dinoNav.SetDestination(_newPos);
     }
 
     public void Update()
     {
+        _distanceToNewPos = Vector3.Distance(_dinoController.transform.position, _newPos);
         _distanceToPlayer = Vector3.Distance(_dinoController.transform.position, _player.transform.position);
-        _dinoNav.SetDestination(_player.transform.position);
 
-        if (_distanceToPlayer >= 10.0f)
+        if (_distanceToNewPos <= 1.0f)
         {
             RandomState();
             _dinoController.ChangeState(_randomState);
+        }
+
+        if (_distanceToPlayer <= 5.0f)
+        {
+            if (_dinoController.Carnivorous == true)
+            {
+                _dinoController.ChangeState(DinosaurStateController.EDinosaurState.ATTACK);
+            }
+            else
+            {
+                _dinoController.ChangeState(DinosaurStateController.EDinosaurState.FLEE);
+            }
         }
     }
 

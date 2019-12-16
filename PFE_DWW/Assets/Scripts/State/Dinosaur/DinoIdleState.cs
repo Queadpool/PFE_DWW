@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using QQ.Utils;
 
-public class WatchState : IBaseState
+public class DinoIdleState : IBaseState
 {
     private DinosaurStateController _dinoController = null;
     private GameObject _player = null;
     private float _distanceToPlayer = 0.0f;
     private Timer _timer = null;
-    private float _watchTimer = 5.0f;
+    private float _idleTimer = 5.0f;
     private DinosaurStateController.EDinosaurState _randomState = DinosaurStateController.EDinosaurState.IDLE;
 
-    public WatchState(DinosaurStateController controller)
+    public DinoIdleState(DinosaurStateController controller)
     {
         _dinoController = controller;
         _player = PlayerManager.Instance.Player;
@@ -21,7 +21,7 @@ public class WatchState : IBaseState
     public void Enter()
     {
         _timer = new Timer();
-        _timer.ResetTimer(_watchTimer);
+        _timer.ResetTimer(_idleTimer);
     }
 
     public void Update()
@@ -36,7 +36,7 @@ public class WatchState : IBaseState
 
         if (_distanceToPlayer <= 5.0f)
         {
-            if (_dinoController.Carnivorous == true)
+            if(_dinoController.Carnivorous == true)
             {
                 _dinoController.ChangeState(DinosaurStateController.EDinosaurState.ATTACK);
             }

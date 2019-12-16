@@ -30,12 +30,12 @@ public class DinosaurStateController : MonoBehaviour
         _dinoNav = GetComponent<NavMeshAgent>();
 
         _states = new Dictionary<EDinosaurState, IBaseState>();
-        _states.Add(EDinosaurState.IDLE, new IdleState(this));
-        _states.Add(EDinosaurState.EAT, new EatState(this));
-        _states.Add(EDinosaurState.WATCH, new WatchState(this));
-        _states.Add(EDinosaurState.WALK, new WalkState(this));
-        _states.Add(EDinosaurState.FLEE, new FleeState(this));
-        _states.Add(EDinosaurState.ATTACK, new AttackState(this));
+        _states.Add(EDinosaurState.IDLE, new DinoIdleState(this));
+        _states.Add(EDinosaurState.EAT, new DinoEatState(this));
+        _states.Add(EDinosaurState.WATCH, new DinoWatchState(this));
+        _states.Add(EDinosaurState.WALK, new DinoWalkState(this));
+        _states.Add(EDinosaurState.FLEE, new DinoFleeState(this));
+        _states.Add(EDinosaurState.ATTACK, new DinoAttackState(this));
         _states[CurrentState].Enter();
     }
 

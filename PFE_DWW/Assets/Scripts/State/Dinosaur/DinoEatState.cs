@@ -1,38 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using QQ.Utils;
 
-public class WalkState : IBaseState
+public class DinoEatState : IBaseState
 {
     private DinosaurStateController _dinoController = null;
-    private NavMeshAgent _dinoNav = null;
     private GameObject _player = null;
-    private Vector3 _newPos = Vector3.zero;
-    private float _distanceToNewPos = 0.0f;
     private float _distanceToPlayer = 0.0f;
+    private Timer _timer = null;
+    private float _eatTimer = 5.0f;
     private DinosaurStateController.EDinosaurState _randomState = DinosaurStateController.EDinosaurState.IDLE;
 
-    public WalkState(DinosaurStateController controller)
+    public DinoEatState(DinosaurStateController controller)
     {
         _dinoController = controller;
-        _dinoNav = _dinoController.DinoNav;
         _player = PlayerManager.Instance.Player;
     }
 
     public void Enter()
     {
-        _newPos = _dinoController.transform.position + (Random.insideUnitSphere * 20);
-        _newPos.y = _dinoController.transform.position.y;
-        _dinoNav.SetDestination(_newPos);
+        _timer = new Timer();
+        _timer.ResetTimer(_eatTimer);
     }
 
     public void Update()
     {
-        _distanceToNewPos = Vector3.Distance(_dinoController.transform.position, _newPos);
         _distanceToPlayer = Vector3.Distance(_dinoController.transform.position, _player.transform.position);
 
-        if (_distanceToNewPos <= 1.0f)
+        if (_timer.TimeLeft <= 0)
         {
             RandomState();
             _dinoController.ChangeState(_randomState);
@@ -53,7 +49,7 @@ public class WalkState : IBaseState
 
     public void Exit()
     {
-        _dinoNav.ResetPath();
+
     }
 
     private void RandomState()
