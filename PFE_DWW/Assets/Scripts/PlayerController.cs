@@ -5,15 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] private Camera _camera;
+    [SerializeField] private Camera _camera = null;
     [SerializeField] private Animator _animator;
-    [SerializeField] private AIDinosaur _dinosaur;
 
     [SerializeField] private float _speed = 6.0f;
     [SerializeField] private float _gravity = 20.0f;
     [SerializeField] private Vector3 moveDirection = Vector3.zero;
     [SerializeField] private float _rotSpeed = 5.0f;
-    [SerializeField] private float _rotAngle = 45.0f;
+    //[SerializeField] private float _rotAngle = 45.0f;
 
     [SerializeField] public bool _dead;
     [SerializeField] public bool _crouch;

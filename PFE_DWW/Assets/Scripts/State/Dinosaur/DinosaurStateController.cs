@@ -15,11 +15,13 @@ public class DinosaurStateController : MonoBehaviour
         ATTACK
     }
 
+    private NavMeshAgent _dinoNav = null;
+    [SerializeField] private bool _carnivorous = false;
     [SerializeField] private EDinosaurState _currentState = EDinosaurState.IDLE;
-    [SerializeField] private NavMeshAgent _dinoNav = null;
 
-    public EDinosaurState CurrentState { get { return _currentState; } }
     public NavMeshAgent DinoNav { get { return _dinoNav; } }
+    public bool Carnivorous { get { return _carnivorous; } }
+    public EDinosaurState CurrentState { get { return _currentState; } }
 
     Dictionary<EDinosaurState, IBaseState> _states = null;
 
@@ -28,23 +30,23 @@ public class DinosaurStateController : MonoBehaviour
         _dinoNav = GetComponent<NavMeshAgent>();
 
         _states = new Dictionary<EDinosaurState, IBaseState>();
-        _states.Add(EDinosaurState.IDLE, new IdleState(this));
-        //_states.Add(EDinosaurState.IDLE, new EatState(this));
-        //_states.Add(EDinosaurState.IDLE, new WatchState(this));
-        //_states.Add(EDinosaurState.IDLE, new WalkState(this));
-        //_states.Add(EDinosaurState.IDLE, new FleeState(this));
-        //_states.Add(EDinosaurState.IDLE, new AttackState(this));
-        _states[_currentState].Enter();
+        _states.Add(EDinosaurState.IDLE, new DinoIdleState(this));
+        _states.Add(EDinosaurState.EAT, new DinoEatState(this));
+        _states.Add(EDinosaurState.WATCH, new DinoWatchState(this));
+        _states.Add(EDinosaurState.WALK, new DinoWalkState(this));
+        _states.Add(EDinosaurState.FLEE, new DinoFleeState(this));
+        _states.Add(EDinosaurState.ATTACK, new DinoAttackState(this));
+        _states[CurrentState].Enter();
     }
 
     private void Update()
     {
-        _states[_currentState].Update();
+        _states[CurrentState].Update();
     }
 
     public void ChangeState(EDinosaurState nextState)
     {
-        _states[_currentState].Exit();
+        _states[CurrentState].Exit();
         _states[nextState].Enter();
         _currentState = nextState;
     }
